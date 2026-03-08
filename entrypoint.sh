@@ -14,7 +14,7 @@ cat > /usr/local/tomcat/conf/Catalina/localhost/ROOT.xml <<EOF
 <Context>
   <Resource name="jdbc/myDatabase"
     auth="Container"
-    type="jakarta.sql.DataSource"
+    type="javax.sql.DataSource"
     driverClassName="com.mysql.cj.jdbc.Driver"
     url="jdbc:mysql://${MYSQLHOST}:${MYSQLPORT:-3306}/${MYSQLDATABASE}?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC"
     username="${MYSQLUSER}"
