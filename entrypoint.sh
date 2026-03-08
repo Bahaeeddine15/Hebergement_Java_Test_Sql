@@ -1,14 +1,15 @@
 #!/bin/sh
 set -e
 
-# Default to 8080 if PORT isn't provided
-PORT_TO_USE="${PORT:-8080}"
+# Ensure the directory exists before writing to it
+mkdir -p /usr/local/tomcat/conf/Catalina/localhost/
 
-# Replace the default port in Tomcat's server.xml
+PORT_TO_USE="${PORT:-8080}"
+echo "--- Starting Tomcat on Port: $PORT_TO_USE ---"
+
 sed -i "s/port=\"8080\"/port=\"${PORT_TO_USE}\"/" /usr/local/tomcat/conf/server.xml
 
-# Generate the Tomcat Resource configuration (ROOT.xml)
-# Note: Using jakarta.sql.DataSource for Tomcat 10+
+# Now this will work because the directory exists
 cat > /usr/local/tomcat/conf/Catalina/localhost/ROOT.xml <<EOF
 <Context>
   <Resource name="jdbc/myDatabase"
@@ -24,5 +25,4 @@ cat > /usr/local/tomcat/conf/Catalina/localhost/ROOT.xml <<EOF
 </Context>
 EOF
 
-# Hand off execution to Tomcat
 exec catalina.sh run
