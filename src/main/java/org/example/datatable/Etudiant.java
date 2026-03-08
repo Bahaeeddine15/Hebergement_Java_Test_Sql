@@ -1,6 +1,7 @@
 package org.example.datatable;
 
 public class Etudiant {
+    private int id;
     private String nom;
     private String prenom;
     private int age;
@@ -11,6 +12,13 @@ public class Etudiant {
         this.age = age;
         this.prenom = prenom;
         this.nom = nom;
+    }
+
+    public Etudiant(int id, String nom, String prenom, int age) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.age = age;
     }
 
     public String getNom() {
@@ -35,5 +43,13 @@ public class Etudiant {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

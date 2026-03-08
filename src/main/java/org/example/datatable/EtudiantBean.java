@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EtudiantBean {
-    private List<Etudiant> etudiants;
+    private EtudiantDao dao = new EtudiantDao();
     private Etudiant nouvelEtudiant = new Etudiant();
     private Etudiant etudiantSelectionne = null;
     private HtmlCommandButton htmlCommandSubmit = new HtmlCommandButton();
@@ -14,22 +14,22 @@ public class EtudiantBean {
     private HtmlCommandButton htmlCommandDelete = new HtmlCommandButton();
 
     public EtudiantBean() {
-        etudiants = new ArrayList<>();
-        etudiants.add(new Etudiant("Dupont", "Jean", 20));
-        etudiants.add(new Etudiant("Martin", "Claire", 22));
-        etudiants.add(new Etudiant("Nguyen", "Thi", 21));
-        etudiants.add(new Etudiant("Mekrane", "Bahae Eddine", 21));
         htmlCommandEdit.setDisabled(true);
         htmlCommandDelete.setDisabled(true);
     }
 
+    public List<Etudiant> getEtudiants(){
+        return dao.getAllEtudiants();
+    }
+
     public void ajouter(){
-        etudiants.add(new Etudiant(nouvelEtudiant.getNom(),nouvelEtudiant.getPrenom(),nouvelEtudiant.getAge()));
+        dao.ajouter(nouvelEtudiant);
         nouvelEtudiant = new Etudiant();
     }
 
     public void select(Etudiant e){
         etudiantSelectionne = e;
+        nouvelEtudiant.setId(e.getId());
         nouvelEtudiant.setNom(e.getNom());
         nouvelEtudiant.setPrenom(e.getPrenom());
         nouvelEtudiant.setAge(e.getAge());
@@ -40,31 +40,27 @@ public class EtudiantBean {
 
     public void modifier(){
         if(etudiantSelectionne != null){
-            etudiantSelectionne.setNom(nouvelEtudiant.getNom());
-            etudiantSelectionne.setPrenom(nouvelEtudiant.getPrenom());
-            etudiantSelectionne.setAge(nouvelEtudiant.getAge());
+            dao.modifier(nouvelEtudiant);
             etudiantSelectionne = null;
             nouvelEtudiant = new Etudiant();
             htmlCommandSubmit.setDisabled(false);
+            htmlCommandEdit.setDisabled(true);
+            htmlCommandDelete.setDisabled(true);
         }
     }
 
     public void delete(){
         if(etudiantSelectionne != null){
-            etudiants.remove(etudiantSelectionne);
+            dao.supprimer(etudiantSelectionne.getId());
             etudiantSelectionne  = null;
             nouvelEtudiant = new Etudiant();
             htmlCommandSubmit.setDisabled(false);
+            htmlCommandEdit.setDisabled(true);
+            htmlCommandDelete.setDisabled(true);
         }
     }
 
-    public List<Etudiant> getEtudiants() {
-        return etudiants;
-    }
 
-    public void setEtudiants(List<Etudiant> etudiants) {
-        this.etudiants = etudiants;
-    }
 
     public Etudiant getNouvelEtudiant() {
         return nouvelEtudiant;
