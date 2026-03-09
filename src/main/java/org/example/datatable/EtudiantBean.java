@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EtudiantBean {
-    private EtudiantDao dao = new EtudiantDao();
+    private EtudiantJpa dao = new EtudiantJpa();
     private Etudiant nouvelEtudiant = new Etudiant();
     private Etudiant etudiantSelectionne = null;
     private HtmlCommandButton htmlCommandSubmit = new HtmlCommandButton();

@@ -1,6 +1,12 @@
 package org.example.datatable;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "etudiants")
 public class Etudiant {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nom;
     private String prenom;
